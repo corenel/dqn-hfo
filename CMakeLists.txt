@@ -10,6 +10,8 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -march=native -Wno-deprecated-declarations")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
+include_directories("/usr/local/cuda/include")
+
 find_package(Boost 1.40 COMPONENTS filesystem system iostreams regex REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
@@ -37,6 +39,7 @@ target_link_libraries(dqn ${GLOG_LIBRARIES})
 target_link_libraries(dqn ${PROTOBUF_LIBRARIES})
 target_link_libraries(dqn ${CAFFE_LIBRARIES})
 target_link_libraries(dqn ${HFO_LIBRARIES})
+target_link_libraries(dqn "/usr/local/cuda/lib64")
 set_target_properties(dqn PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/hfo_policies/dummy_teammate.cxx ${CMAKE_CURRENT_SOURCE_DIR}/build/src/hfo_policies/dummy_teammate.cpp)
